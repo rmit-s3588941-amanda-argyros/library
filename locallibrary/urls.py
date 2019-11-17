@@ -25,9 +25,6 @@ router.register(r'book', views.BookView, 'book')
 router.register(r'author', views.AuthorView, 'author')
 router.register(r'bookinstance', views.BookInstanceView, 'bookinstance')
 
-
-
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
