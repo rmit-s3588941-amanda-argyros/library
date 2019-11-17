@@ -1,6 +1,6 @@
 from django.shortcuts import render
-
-# Create your views here.
+from rest_framework import viewsets
+from catalog.serializers import GenreSerializer, BookSerializer, AuthorSerializer, BookInstanceSerializer
 from catalog.models import Book, Author, BookInstance, Genre
 
 def index(request):
@@ -89,3 +89,19 @@ class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
     
     def get_queryset(self):
         return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back')
+
+class GenreView(viewsets.ModelViewSet):
+    serializer_class = GenreSerializer
+    queryset = Genre.objects.all()
+
+class BookView(viewsets.ModelViewSet):
+    serializer_class = BookSerializer
+    queryset = Book.objects.all()
+
+class AuthorView(viewsets.ModelViewSet):
+    serializer_class = AuthorSerializer
+    queryset = Author.objects.all()
+
+class BookInstanceView(viewsets.ModelViewSet):
+    serializer_class = BookInstanceSerializer
+    queryset = BookInstance.objects.all()
